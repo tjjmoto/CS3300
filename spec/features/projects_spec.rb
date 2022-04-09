@@ -1,14 +1,22 @@
 require 'rails_helper'
 
-test_email = "test@example.com"
-test_password = "f4k3p455w0rd"
+RSpec.configure do |config|
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+end
 
 RSpec.feature "Projects", type: :feature do
   context "Create new project" do
     before(:each) do
+      User.create(:email => 'test@example.com', :password => 'testpassword')
+      visit "/users/sign_in"
+
+      fill_in "Email", with: "test@example.com"
+      fill_in "Password", with: "testpassword"
+
+      click_button "Log in"
       visit new_project_path
       within("form") do
-        fill_in "Title", with: "Test title"
+      fill_in "Title", with: "Test title"
       end
     end
 
@@ -27,6 +35,13 @@ RSpec.feature "Projects", type: :feature do
   context "Update project" do
     let(:project) { Project.create(title: "Test title", description: "Test content") }
     before(:each) do
+      User.create(:email => 'test@example.com', :password => 'testpassword')
+      visit "/users/sign_in"
+
+      fill_in "Email", with: "test@example.com"
+      fill_in "Password", with: "testpassword"
+
+      click_button "Log in"
       visit edit_project_path(project)
     end
 
@@ -49,6 +64,16 @@ RSpec.feature "Projects", type: :feature do
 
   context "Remove existing project" do
     let!(:project) { Project.create(title: "Test title", description: "Test content") }
+    before(:each) do
+      User.create(:email => 'test@example.com', :password => 'testpassword')
+      visit "/users/sign_in"
+
+      fill_in "Email", with: "test@example.com"
+      fill_in "Password", with: "testpassword"
+
+      click_button "Log in"
+    end
+
     scenario "remove project" do
       visit projects_path
       click_link "Destroy"
