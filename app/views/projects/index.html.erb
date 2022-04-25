@@ -1,29 +1,43 @@
 <p id="notice"><%= notice %></p>
 
+<div class="container-fluid">
 <h1>Projects</h1>
+<br>
+<h4><u>About Me</u></h4>
+<p>Hello my name is Troy, I go to UCCS and I am majoring in BI Computer Science. This is my portfolio 
+with 3 of the main projects that I have created in the past and hope to continue to add more projects 
+in the future. These projects span from this year 2022, all the way back to when I began developing 
+watch faces back in 2019.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.title %></td>
-        <td><%= project.description %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if user_signed_in? %>
+<div class="container-fluid">
+<%= link_to 'Create New Project', new_project_path, class: "btn btn-primary"%>
+</div>
+<% end %>
 
 <br>
 
-<%= link_to 'New Project', new_project_path %>
+<div class="row">
+  <% @projects.each do |project| %>
+        <div class="col-md-3">
+          <div class="card bg-light mb-4 box-shadow">
+            <%= image_tag("computerimage.jpeg", class: "img-responsive img-thumbnail img-rounded") %>
+              <div class="card-body">
+              <h5 class="card-title">  <td><%= project.title %></td></h5>
+
+              <% if project.description.length > 100 %>
+                <p class="card-text"><td><%= project.description.slice(0..100) ... %></td> <p>
+              <% else %>
+                <p class="card-text"><td><%= project.description%></td> <p>
+              <% end %>
+
+              <a href="#" class="card-link">          <td><%= link_to 'View Details', project, class: "btn btn-primary" %></td></a>
+              <% if user_signed_in? %>
+              <a href="#" class="card-link">          <td><%= link_to 'Edit', edit_project_path(project),  class: "btn btn-info"%></td></a>
+              <a href="#" class="card-link">         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td></a>
+              <% end %>
+              </div>
+          </div>
+        </div>
+  <% end %>
+</div>

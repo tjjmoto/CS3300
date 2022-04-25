@@ -1,14 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @project.title %>
-</p>
+<div class="container-fluid">
+  <div class="d-flex justify-content-center">
+    <div class="card bg-light mb-4 box-shadow">
+      <div class="card-body">
+      <h4 class="card-title">  <td><%= @project.title %></td></h4>
+      <p class="card-text"> <td><%= @project.description %></td></p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+      <br>
+      <% if user_signed_in? %>
+      <%= link_to 'Edit', edit_project_path(@project), class: "btn btn-info" %> |
+      <% end %>
+      <%= link_to 'Back', projects_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

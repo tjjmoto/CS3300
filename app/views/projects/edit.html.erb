@@ -1,6 +1,12 @@
-<h1>Editing Project</h1>
+<div class="container-fluid">
+    <div class="d-flex justify-content-center">
+        <div class="border bg-light mb-4 box-shadow">
+            <h2>Editing Project</h2>
 
-<%= render 'form', project: @project %>
-
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+            <%= render 'form', project: @project %>
+            <br>
+            <%= link_to 'Show', @project, class: "btn btn-primary" %> |
+            <%= link_to 'Back', projects_path, class: "btn btn-primary" %>
+        </div>
+    </div>
+</div>
